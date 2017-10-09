@@ -35,7 +35,7 @@ module.exports = {
   entry: path.resolve(__dirname, './app/assets/js/index.js'),
   
   output: {
-    path: path.resolve(__dirname, './dist/js'),
+    path: path.resolve(__dirname, './dist/assets/js'),
     filename: 'main.js'
   },
   
@@ -57,7 +57,7 @@ module.exports = {
         test: /\.scss$/,
         use: extractSCSS.extract({
           fallback: 'style-loader',
-          publicPath: '../',
+          publicPath: '../assets/',
           use: [
             'postcss-loader',
             'css-validator-loader',
@@ -108,19 +108,24 @@ module.exports = {
     extractSCSS,
     new CopyWebpackPlugin([
       {
-        from: './fonts/**/*',
-        to: '../'
+        from: 'app/assets/fonts',
+        to: '../fonts'
       },
       {
-        from: './img/**/*',
-        to: '../'
+        from: 'app/assets/images',
+        to: '../images'
       }
     ]),
     new HtmlWebpackPlugin({
-      filename: '../index.template.html',
+      filename: '../../index.html',
       template: './app/html/index.template.ejs',
       hash: true,
       inject: false
+    }),
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery'
     })
   ],
   

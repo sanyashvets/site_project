@@ -33,22 +33,19 @@ module.exports = {
     'webpack-hot-middleware/client?path=http://localhost:1488/__webpack_hmr&reload=true&timeout=1000&overlay=false',
     path.resolve(__dirname, './app/assets/js/index.js')
   ],
-  
   output: {
-    path: path.resolve(__dirname, './dist/js'),
+    path: path.resolve(__dirname, './dist/assets/js'),
     filename: 'main.js',
-    publicPath: '/js'
+    publicPath: '/'
   },
-  
   resolve: {
     unsafeCache: true,
-    alias: {
+    /*alias: {
       axios: 'axios/dist/axios.min'
-    },
+    },*/
     
     modules: ['app/assets/js', 'node_modules']
   },
-  
   module: {
     rules: [
       {
@@ -73,7 +70,6 @@ module.exports = {
       }
     ]
   },
-  
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -84,18 +80,23 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: './fonts/**/*',
-        to: '../'
+        from: 'app/assets/fonts',
+        to: '../fonts'
       },
       {
-        from: './img/**/*',
-        to: '../'
+        from: 'app/assets/images',
+        to: '../images'
       }
     ]),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
+      filename: '../../index.html',
       template: './app/html/index.template.ejs',
       inject: false
+    }),
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery'
     })
   ],
   
