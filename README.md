@@ -15,6 +15,10 @@ Big hugs to open-source for that:
 ### Developments
 Just clone this repo and follow few commands:
 
+
+
+
+
 ```bash
 # for developing
 npm i && npm run dev
